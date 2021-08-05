@@ -54,7 +54,7 @@ exports.setdeviceinfo = (req, res) => {
         MSISDN: req.body.MSISDN,
         geofence: req.body.geofence
 	}).then((result) => {
-		res.status(200).send({"msg" : "Data Added Successfully"})
+		res.status(200).send({msg : "Data Added Successfully"})
 	}).catch((err) => {
 		res.status(500).send("Fail! Error -> " + err)
 	})

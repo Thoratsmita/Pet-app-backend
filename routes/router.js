@@ -22,6 +22,6 @@ module.exports = function(app) {
 
 	app.post('/api/setdeviceinfo', verifyToken, customercontroller.setdeviceinfo)
 
-	app.post('/api/getdeviceinfo', verifyToken, customercontroller.getdeviceinfo)
+	app.get('/api/getdeviceinfo', verifyToken, customercontroller.getdeviceinfo)
 
 }

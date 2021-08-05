@@ -20,7 +20,7 @@ exports.signup = (req, res) => {
 		email: req.body.email,
 		password: bcrypt.hashSync(req.body.password, 8)
 	}).then(user => {
-		res.status(200).send("User registered successfully!");
+		res.status(200).send({msg : "User registered successfully!"});
 	}).catch(err => {
 		res.status(500).send("Fail! Error -> " + err);
 	})
@@ -52,7 +52,7 @@ exports.signin = (req, res) => {
 				email: req.body.email,
 				token: token
 			}).then(user => {
-				res.status(200).send({ auth: true, accessToken: token })
+				res.status(200).send({auth: true, accessToken: token})
 			}).catch(err => {
 				res.status(500).send("Fail! Error -> " + err)
 			})
