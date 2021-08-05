@@ -16,4 +16,12 @@ module.exports = function(app) {
 
 	app.post('/api/updateprofile', verifyToken, customercontroller.updateprofile)
 
+	app.post('/api/changepassword', verifyToken, controller.changepassword)
+
+	app.post('/api/forgotpasswordmail', controller.forgotpasswordmail)
+
+	app.post('/api/setdeviceinfo', verifyToken, customercontroller.setdeviceinfo)
+
+	app.post('/api/getdeviceinfo', verifyToken, customercontroller.getdeviceinfo)
+
 }

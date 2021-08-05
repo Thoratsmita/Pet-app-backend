@@ -1,5 +1,8 @@
 const db = require('../config');
 const config = require('../config/secret.config');
+const randomstring = require("randomstring");
+const nodemailer = require("nodemailer");
+
 const User = db.user;
 const UserToken = db.userToken;
 
@@ -84,5 +87,83 @@ exports.signout = (req, res) => {
 			res.status(500).send("Fail! Error -> " + err)
 		})
    	
+}
+
+exports.changepassword = (req, res) => {
+	console.log("Change Password")
+
+	const authHeader = req.headers["authorization"]
+
+	UserToken.findOne({
+		where: {
+				token: authHeader
+			}
+		}).then(user => {
+			
+			User.update(
+				{password: bcrypt.hashSync(req.body.password, 8)},
+				{where: {email: user.email}}
+			).then((result) => {
+				res.status(200).send({msg: 'Password Updated Successfully.'})
+				console.log(result)
+			}).catch((err) => {
+				res.status(500).send("Fail! Error -> " + err)
+			})
+
+		}).catch(err => {
+			res.status(500).send("Fail! Error -> " + err)
+		})
+   	
+}
+
+exports.forgotpasswordmail = (req, res) => {
+	console.log("Processing func -> Forgot Password Mail");
+	
+	console.log(req.body)
+	User.findOne({
+		where: {
+			email: req.body.email
+		}
+	}).then(user => {
+
+		if(!user) {
+			return res.status(404).send({msg : 'Email Not Registered.'})
+		}
+
+		const randomstr = randomstring.generate(10)
+
+		console.log(randomstr)
+
+		var transporter = nodemailer.createTransport({
+			service: 'gmail',
+			auth: {
+			  user: '',
+			  pass: ''
+			}
+		  });
+		  
+		  var mailOptions = {
+			from: '',
+			to: '',
+			subject: 'System generated Password!!!',
+			text: 'Your new password :- ' + randomstr
+		  };
+		  
+		  transporter.sendMail(mailOptions, function(error, info){
+			if (error) {
+			  console.log(error);
+			  return res.status(500).send({msg : error})
+			} else {
+			  console.log('Email sent: ' + info.response);
+			  return res.status(200).send({msg : 'Email sent'})
+			}
+		  });
+		  
+
+
+
+	}).catch(err => {
+		res.status(500).send("Fail! Error -> " + err);
+	})
 }
 
