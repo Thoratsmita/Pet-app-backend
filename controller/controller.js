@@ -44,10 +44,9 @@ exports.signin = (req, res) => {
 		}
 		
 		var token = jwt.sign({ id: user.id }, config.secret, {
-		  expiresIn: 86400 // expires in 24 hours
+		//   expiresIn: 86400 // expires in 24 hours
 		});
 
-		
 		UserToken.create({
 				email: req.body.email,
 				token: token
@@ -56,9 +55,7 @@ exports.signin = (req, res) => {
 			}).catch(err => {
 				res.status(500).send("Fail! Error -> " + err)
 			})
-		
-		
-		
+				
 	}).catch(err => {
 		console.log(req.body.email)
 		res.status(500).send('Error -> ' + err)
@@ -90,11 +87,13 @@ exports.signout = (req, res) => {
 }
 
 exports.changepassword = (req, res) => {
+
 	console.log("Change Password")
 
 	const authHeader = req.headers["authorization"]
 
 	UserToken.findOne({
+
 		where: {
 				token: authHeader
 			}
@@ -134,34 +133,41 @@ exports.forgotpasswordmail = (req, res) => {
 
 		console.log(randomstr)
 
-		var transporter = nodemailer.createTransport({
-			service: 'gmail',
-			auth: {
-			  user: '',
-			  pass: ''
-			}
-		  });
-		  
-		  var mailOptions = {
-			from: '',
-			to: '',
-			subject: 'System generated Password!!!',
-			text: 'Your new password :- ' + randomstr
-		  };
-		  
-		  transporter.sendMail(mailOptions, function(error, info){
-			if (error) {
-			  console.log(error);
-			  return res.status(500).send({msg : error})
-			} else {
-			  console.log('Email sent: ' + info.response);
-			  return res.status(200).send({msg : 'Email sent'})
-			}
-		  });
-		  
+		User.update(
+			{password: bcrypt.hashSync(randomstr, 8)},
+			{where: {email: req.body.email}}
+		).then((result) => {
+			var transporter = nodemailer.createTransport({
+				service: 'gmail',
+				auth: {
+				  user: 'vaibhavgovil19@gmail.com',
+				  pass: 'Lucknow@9991'
+				}
+			});
+			  
+			var mailOptions = {
+				from: 'vaibhavgovil19@gmail.com',
+				to: req.body.email,
+				subject: 'System generated Password!!!',
+				text: 'Your new password :- ' + randomstr
+			};
+			  
+			transporter.sendMail(mailOptions, function(error, info){
+				if (error) {
+					console.log(error);
+					return res.status(500).send({msg : error})
+				} else {
+					console.log('Email sent: ' + info.response);
+					return res.status(200).send({msg : 'Email sent'})
+				}
+			});
 
+		}).catch((err) => {
+			res.status(500).send("Fail! Error -> " + err)
+		})
 
-
+		
+		  
 	}).catch(err => {
 		res.status(500).send("Fail! Error -> " + err);
 	})
