@@ -140,13 +140,13 @@ exports.forgotpasswordmail = (req, res) => {
 			var transporter = nodemailer.createTransport({
 				service: 'gmail',
 				auth: {
-				  user: 'vaibhavgovil19@gmail.com',
-				  pass: 'Lucknow@9991'
+				  user: '',
+				  pass: ''
 				}
 			});
 			  
 			var mailOptions = {
-				from: 'vaibhavgovil19@gmail.com',
+				from: '',
 				to: req.body.email,
 				subject: 'System generated Password!!!',
 				text: 'Your new password :- ' + randomstr
