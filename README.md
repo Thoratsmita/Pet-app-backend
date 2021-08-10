@@ -6,7 +6,7 @@
 
 Request Type :- POST
 
-API :- http://localhost:3000/api/auth/signup
+API :-  https://petapp-backend.herokuapp.com/api/auth/signup
 
 Body Parameters in x-www-form-urlencoded :-
 1) name: ""
@@ -29,7 +29,7 @@ if successful :
 
 Request Type :- POST
 
-API :- http://localhost:3000/api/auth/signin
+API :- https://petapp-backend.herokuapp.com/api/auth/signin
 
 Body Parameters in x-www-form-urlencoded
 1) email: ""
@@ -42,7 +42,9 @@ if successful :
   Status : 200
   {
     auth: true, 
-    accessToken: token
+    accessToken: token,
+    name: name,
+		username: username
   }  
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -51,7 +53,7 @@ if successful :
 
 Request Type :- POST
 
-API :- http://localhost:3000/api/auth/signout
+API :- https://petapp-backend.herokuapp.com/api/auth/signout
 
 Headers :- 
 1) authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI4MDc4OTcxLCJleHAiOjE2MjgxNjUzNzF9.N6FdBB050mZUVUyN-EDaKiDuh7AYIinzNAEclxbsw6w"
@@ -72,7 +74,7 @@ if successful :
 
 Request Type :- GET
 
-API :- http://localhost:3000/api/getprofile
+API :- https://petapp-backend.herokuapp.com/api/getprofile
 
 Headers :- 
 1) authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI4MDc4OTcxLCJleHAiOjE2MjgxNjUzNzF9.N6FdBB050mZUVUyN-EDaKiDuh7AYIinzNAEclxbsw6w"
@@ -98,7 +100,7 @@ if successful :
 
 Request Type :- POST
 
-API :- http://localhost:3000/api/updateprofile
+API :- https://petapp-backend.herokuapp.com/api/updateprofile
 
 Headers :- 
 1) authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI4MDc4OTcxLCJleHAiOjE2MjgxNjUzNzF9.N6FdBB050mZUVUyN-EDaKiDuh7AYIinzNAEclxbsw6w"
@@ -125,7 +127,7 @@ if successful :
 
 Request Type :- POST
 
-API :- http://localhost:3000/api/changepassword
+API :- https://petapp-backend.herokuapp.com/api/changepassword
 
 Headers :- 
 1) authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI4MDc4OTcxLCJleHAiOjE2MjgxNjUzNzF9.N6FdBB050mZUVUyN-EDaKiDuh7AYIinzNAEclxbsw6w"
@@ -148,7 +150,7 @@ if successful :
 
 Request Type :- POST
 
-API :- http://localhost:3000/api/forgotpasswordmail
+API :- https://petapp-backend.herokuapp.com/api/forgotpasswordmail
 
 Body Parameters in x-www-form-urlencoded
 1) email: ""
@@ -169,7 +171,7 @@ if successful :
 
 Request Type :- POST
 
-API :- http://localhost:3000/api/setdeviceinfo
+API :- https://petapp-backend.herokuapp.com/api/setdeviceinfo
 
 Headers :- 
 1) authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI4MDc4OTcxLCJleHAiOjE2MjgxNjUzNzF9.N6FdBB050mZUVUyN-EDaKiDuh7AYIinzNAEclxbsw6w"
@@ -196,7 +198,7 @@ if successful :
 
 Request Type :- GET
 
-API :- http://localhost:3000/api/getdeviceinfo
+API :- https://petapp-backend.herokuapp.com/api/getdeviceinfo
 
 Headers :- 
 1) authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI4MDc4OTcxLCJleHAiOjE2MjgxNjUzNzF9.N6FdBB050mZUVUyN-EDaKiDuh7AYIinzNAEclxbsw6w"
@@ -218,3 +220,57 @@ if successful :
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Create the order :- 
+
+Request Type :- POST
+
+API :- https://petapp-backend.herokuapp.com/api/payment/order
+
+Headers :- 
+1) authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI4MDc4OTcxLCJleHAiOjE2MjgxNjUzNzF9.N6FdBB050mZUVUyN-EDaKiDuh7AYIinzNAEclxbsw6w"
+
+Body Parameters in x-www-form-urlencoded
+1) amount: "10"   
+(amount must be in Rs.)
+
+Response :- 
+
+if successful :
+
+  Status : 200
+  {
+    order_id: "",
+    currency: "INR",
+    amount: "10"
+  }
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Verify the payment :- 
+
+Request Type :- POST
+
+API :- https://petapp-backend.herokuapp.com/api/payment/verify
+Headers :- 
+1) authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI4MDc4OTcxLCJleHAiOjE2MjgxNjUzNzF9.N6FdBB050mZUVUyN-EDaKiDuh7AYIinzNAEclxbsw6w"
+2) x-razorpay-signature: "1145dba89ede36cef05c1e194b2a75bc5312db0b40fd0f57b0b7d632852"
+
+Body Parameters in x-www-form-urlencoded
+1) order_id: ""
+2) payment_id: ""
+
+Response :- 
+
+if successful :
+
+  Status : 200
+  {
+    success:true, 
+    message:"Payment has been verifed"
+  }
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
