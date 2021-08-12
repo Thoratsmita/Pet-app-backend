@@ -21,9 +21,9 @@ if successful :
   Status : 200
   {
     msg: "User registered successfully!"
-    "name": "vaibhav",
-    "username": "vaibhav",
-    "email": "vaibhavgovil19@gmail.com"
+    "name": "",
+    "username": "",
+    "email": ""
   }
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
